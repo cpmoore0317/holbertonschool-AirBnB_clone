@@ -35,7 +35,7 @@ class BaseModel:
         """
         updates the attribute updated_at with the current datetime
         """
-        return "{}".format(self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         '''
