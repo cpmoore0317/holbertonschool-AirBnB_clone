@@ -31,6 +31,12 @@ class BaseModel:
         self.created_at = datetime.now()
         self.updated_at = self.created_at
 
+    def __str__(self):
+        """
+        updates the attribute updated_at with the current datetime
+        """
+        return "{}".format(self.__dict__)
+
     def save(self):
         '''
         updates public instance attribute
@@ -46,12 +52,3 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['uodated_at'] = self.updated_at.isoformat()
         return obj_dict
-
-    def __str__(self):
-        """
-        _summary_
-
-        Returns:
-            _type_: _description_
-        """
-        return "{}".format(self.__dict__)
