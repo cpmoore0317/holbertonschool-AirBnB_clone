@@ -3,6 +3,7 @@
 import json
 import models
 
+
 class FileStorage:
     """
     Class FileStorage that serializes instances to a JSON file and
@@ -40,7 +41,7 @@ class FileStorage:
             with open(self.__file_path, encoding="UTF8") as fd:
                 self.__objects = json.load(fd)
             for key, val in self.__objects.items():
-                class_name = val["class"]
+                class_name = val["__class__"]
                 cls = models.classes.get(class_name)
                 if cls:
                     self.__objects[key] = cls(**val)
