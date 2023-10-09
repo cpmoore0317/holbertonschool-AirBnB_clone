@@ -38,12 +38,10 @@ class FileStorage:
         """ Deserializes the JSON file to __objects if the JSON file
         exists ; otherwise, nothing. """
         try:
-            with open(self.__file_path, encoding="UTF8") as fd:
-                self.__objects = json.load(fd)
-            for key, val in self.__objects.items():
-                class_name = val["__class__"]
-                cls = models.classes.get(class_name)
-                if cls:
-                    self.__objects[key] = cls(**val)
+            with open(self.__file_path, "r", encoding="utf-8") as file:
+                file_dict = json.load(file)
+                for key, value in file_dict.items():
+                    value = eval(value["__class__"])(**value)
+                    self.__objects[key] = value
         except FileNotFoundError:
             pass
