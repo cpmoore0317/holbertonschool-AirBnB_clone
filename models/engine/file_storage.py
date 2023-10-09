@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Module for FileStorage class. """
 import json
-
+import models
 
 class FileStorage:
     """
@@ -37,9 +37,11 @@ class FileStorage:
         """ Deserializes the JSON file to __objects if the JSON file
         exists ; otherwise, nothing. """
         try:
-            with open(self.__file_path, 'r') as file:
-                deserialized_objects = json.load(file)
-            for key in deserialized_objects:
-                self.__objects[key] = class[deserialized_objects[key]["__class__"]](**deserialized_objects[key])
+            with open(FileStorage.file_path, encoding="UTF8") as fd:
+                self.objects = json.load(fd)
+            for key, val in self.objects.items():
+                class_name = val["class"]
+                class_name = models.classes[class_name]
+                self.__objects[key] = class_name(**val)
         except FileNotFoundError:
             pass
