@@ -27,7 +27,7 @@ class FileStorage:
     def save(self):
         """ Serializes __objects to the JSON file (path: __file_path) """
         serialized_objects = {}
-        for key, obj, in self.__objects.items():
+        for key, obj in self.__objects.items():
             serialized_objects[key] = obj.to_dict()
 
         with open(self.__file_path, 'w') as file:
@@ -37,11 +37,12 @@ class FileStorage:
         """ Deserializes the JSON file to __objects if the JSON file
         exists ; otherwise, nothing. """
         try:
-            with open(FileStorage.file_path, encoding="UTF8") as fd:
-                self.objects = json.load(fd)
-            for key, val in self.objects.items():
+            with open(self.__file_path, encoding="UTF8") as fd:
+                self.__objects = json.load(fd)
+            for key, val in self.__objects.items():
                 class_name = val["class"]
-                class_name = models.classes[class_name]
-                self.__objects[key] = class_name(**val)
+                cls = models.classes.get(class_name)
+                if cls:
+                    self.__objects[key] = cls(**val)
         except FileNotFoundError:
             pass
