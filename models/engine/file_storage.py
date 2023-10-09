@@ -3,6 +3,7 @@
 import json
 import models
 
+
 class FileStorage:
     """
     Class FileStorage that serializes instances to a JSON file and
