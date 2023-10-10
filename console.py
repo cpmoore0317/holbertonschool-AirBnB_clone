@@ -68,6 +68,19 @@ class HBNBCommand(cmd.Cmd):
                     del models.storage.all()[key]
                     models.storage.save()
 
+    def do_EOF(self, line):
+        '''
+        handles eof char
+        '''
+        print()
+        return True
+
+    def do_quit(self, line):
+        '''
+        exit program
+        '''
+        return True
+
     def default(self, line):
         if line == "quit" or line == "EOF":
             return True
