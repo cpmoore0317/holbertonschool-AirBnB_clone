@@ -21,24 +21,6 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
 
-    def do_quit(self, arg):
-        '''
-        quit command for exit
-        '''
-        return True
-
-    def do_eof(self, arg):
-        '''
-        eof signal to exit
-        '''
-        return True
-
-    def emptyline(self):
-        '''
-        does nnothing with empty line
-        '''
-        pass
-
     def do_create(self, arg):
         """ Creates an instance of BaseModel """
         if arg == "" or arg is None:
@@ -66,25 +48,34 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-        def do_destroy(self, arg):
-            '''
-            deletes instance based on class and id
-            '''
-            if arg == '' or arg is None:
-                print('** class name missing **')
+    def do_destroy(self, arg):
+        '''
+         deletes instance based on class and id
+        '''
+        if arg == '' or arg is None:
+            print('** class name missing **')
+        else:
+            args = arg.split(' ')
+            if args[0] not in models.storage.classes():
+                print("** class doesn't exist **")
+            elif len(args) < 2:
+                print("** instance id missing **")
             else:
-                args = arg.split(' ')
-                if args[0] not in models.storage.classes():
-                    print("** class doesn't exist **")
-                elif len(args) < 2:
-                    print("** instance id missing **")
+                key = "{}.{}".format(args[0], args[1])
+                if key not in models.storage.all():
+                    print("** no instance found **")
                 else:
-                    key = "{}.{}".format(args[0], args[1])
-                    if key not in models.storage.all():
-                        print("** no instance found **")
-                    else:
-                        del models.storage.all()[key]
-                        models.storage.save()
+                    del models.storage.all()[key]
+                    models.storage.save()
+
+    def default(self, line):
+        if line == "quit" or line == "EOF":
+            return True
+        return super().default(line)
+
+    def emptyline(self):
+        """ Determines behavior when empty line is passed """
+        pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
