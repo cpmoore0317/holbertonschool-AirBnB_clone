@@ -4,6 +4,7 @@ defines hbnb console
 '''
 import cmd
 import models
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,11 +13,6 @@ class HBNBCommand(cmd.Cmd):
     '''
     prompt = '(hbnb) '
 
-    def emptyline(self):
-        '''
-        does nothing with empty line
-        '''
-        pass
 
     def do_quit(self, arg):
         '''
@@ -29,6 +25,12 @@ class HBNBCommand(cmd.Cmd):
         eof signal to exit
         '''
         return True
+
+    def emptyline(self):
+        '''
+        does nnothing with empty line
+        '''
+        pass
 
 
 if __name__ == '__main__':
