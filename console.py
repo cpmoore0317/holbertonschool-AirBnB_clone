@@ -67,6 +67,22 @@ class HBNBCommand(cmd.Cmd):
                     del models.storage.all()[key]
                     models.storage.save()
 
+    def do_all(self, line):
+        '''
+        prints all str represenations
+        '''
+        if line != '':
+            lines = line.split(' ')
+            if lines[0] not in models.storage.classes():
+                print("** class doesn't exist **")
+            else:
+                newlist1 = [str(obj) for key, obj in storage.all().items()
+                            if type(obj).__name__ == lines[0]]
+                print(newlist1)
+        else:
+            newlist2 = [str(obj) for key, obj in storage.all().items()]
+            print(newlist2)
+
     def do_EOF(self, line):
         '''
         handles eof char
