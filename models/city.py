@@ -9,5 +9,5 @@ class City(BaseModel):
     '''
     represent city class objects
     '''
-    state_id = ''
-    name = ''
+    state_id = ""
+    name = ""

@@ -10,6 +10,6 @@ class Review(BaseModel):
     represents review class objects
     '''
 
-    place_id = ''
-    user_id = ''
-    text = ''
+    place_id = ""
+    user_id = ""
+    text = ""
