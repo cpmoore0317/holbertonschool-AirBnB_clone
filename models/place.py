@@ -10,10 +10,10 @@ class Place(BaseModel):
     represent place class objects
     '''
 
-    city_id = ''
-    user_id = ''
-    name = ''
-    description = ''
+    city_id = ""
+    user_id = ""
+    name = ""
+    description = ""
     number_rooms = 0
     number_bathrooms = 0
     max_guest = 0
