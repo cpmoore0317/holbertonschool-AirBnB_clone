@@ -3,6 +3,7 @@
 defines hbnb console
 '''
 import cmd
+import models
 
 
 class HBNBCommand(cmd.Cmd):
