@@ -20,48 +20,47 @@ class HBNBCommand(cmd.Cmd):
     '''
     prompt = '(hbnb) '
 
-
-    def do_create(self, arg):
+    def do_create(self, line):
         """ Creates an instance of BaseModel """
-        if arg == "" or arg is None:
+        if line == "" or line is None:
             print("** class name missing **")
-        elif arg not in models.storage.classes():
+        elif line not in models.storage.classes():
             print("** class doesn't exist **")
         else:
-            new_instance = models.storage.classes()[arg]()
+            new_instance = models.storage.classes()[line]()
             new_instance.save
             print(new_instance.id)
 
-    def do_show(self, arg):
-        args = arg.split()
-        if not arg:
-             print("** class name missing **")
-        elif args[0] not in ["BaseModel"]:
+    def do_show(self, line):
+        lines = line.split()
+        if not line:
+            print("** class name missing **")
+        elif lines[0] not in ["BaseModel"]:
             print("** class doesn't exist **")
-        elif len(args) < 2:
+        elif len(lines) < 2:
             print("** instance id missing **")
         else:
-            key = "{}.{}".format(args[0], args[1])
+            key = "{}.{}".format(lines[0], lines[1])
             all_objs = models.storage.all()
             if key in all_objs:
                 print(all_objs[key])
             else:
                 print("** no instance found **")
 
-    def do_destroy(self, arg):
+    def do_destroy(self, line):
         '''
          deletes instance based on class and id
         '''
-        if arg == '' or arg is None:
+        if line == '' or line is None:
             print('** class name missing **')
         else:
-            args = arg.split(' ')
-            if args[0] not in models.storage.classes():
+            lines = line.split(' ')
+            if lines[0] not in models.storage.classes():
                 print("** class doesn't exist **")
-            elif len(args) < 2:
+            elif len(lines) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(args[0], args[1])
+                key = "{}.{}".format(lines[0], lines[1])
                 if key not in models.storage.all():
                     print("** no instance found **")
                 else:
@@ -89,6 +88,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ Determines behavior when empty line is passed """
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
