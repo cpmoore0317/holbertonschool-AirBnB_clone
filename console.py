@@ -6,9 +6,13 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
+    '''
+    defines the hbnb command interpreter
+    '''
+
     prompt = '(hbnb) '
 
-    def empty_line(self):
+    def emptyline(self):
         '''
         does nothing with empty line
         '''
@@ -30,5 +34,5 @@ class HBNBCommand(cmd.Cmd):
         print('')
         return True
 
-    if __name__ == '__main__':
-        HBNBCommand().cmdloop()
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
