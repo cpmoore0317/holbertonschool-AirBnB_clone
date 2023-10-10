@@ -27,7 +27,6 @@ class HBNBCommand(cmd.Cmd):
         '''
         eof signal to exit
         '''
-        print()
         return True
 
 
