@@ -62,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
             print('** class name missing **')
         else:
             lines = line.split(' ')
-            if lines[0] not in models.storage.classes():
+            if lines[0] not in models.storage.classes:
                 print("** class doesn't exist **")
             elif len(lines) < 2:
                 print("** instance id missing **")
@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         if not lines:
             print("** class name missing **")
             return
-        if not lines[0] not in classes:
+        if not lines[0] not in models.storage.classes:
             print("** class doesn't exist **")
             return
         if len(lines) < 2:
