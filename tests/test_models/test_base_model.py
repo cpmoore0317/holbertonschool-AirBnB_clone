@@ -2,11 +2,29 @@
 """ Unit testing for base_model.py """
 import unittest
 from models.base_model import BaseModel
+import pathlib
+from datetime import datetime
 
 
 class TestBaseModel(unittest.TestCase):
     """ Class for base_model testing """
+    @classmethod
+    def setUpClass(cls):
+        """
+        Method to set up BaseModel classes for use during testing.
+        """
+        cls.base1 = BaseModel()
+        cls.base2 = BaseModel()
 
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Method to tear down BaseModel classes for use during testing.
+        """
+        del cls.base1
+        del cls.base2
+        return super().tearDownClass()
+    
     def test_init(self):
         my_model = BaseModel()
         self.assertIsNotNone(my_model.id)
