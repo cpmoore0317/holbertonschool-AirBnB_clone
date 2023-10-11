@@ -32,7 +32,6 @@ class FileStorage:
     def classes(self):
         """
         Return a dictionary of all the supported classes for serialization.
-        You can add more classes as needed.
         """
         return {
             'BaseModel': BaseModel,
