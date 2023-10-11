@@ -14,6 +14,9 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+
 
 class HBNBCommand(cmd.Cmd):
     '''
@@ -21,16 +24,17 @@ class HBNBCommand(cmd.Cmd):
     '''
     prompt = '(hbnb) '
 
-    def do_create(self, line):
+    def do_create(self, args):
         """ Creates an instance of BaseModel """
-        if line == "" or line is None:
+        if len(args) == 0:
             print("** class name missing **")
-        elif line not in models.storage.classes():
-            print("** class doesn't exist **")
+            return False
+        elif args in classes.keys():
+            instance = classes[args]()
+            print(instance.id)
+            instance.save()
         else:
-            new_instance = models.storage.classes()[line]()
-            new_instance.save
-            print(new_instance.id)
+            print("** class doesn't exist **")
 
     def do_show(self, line):
         lines = line.split()
