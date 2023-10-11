@@ -79,18 +79,18 @@ class HBNBCommand(cmd.Cmd):
         objectlist = []
         models.storage.reload()
         objects = models.storage.all()
-        try:
-            if len(line) != 0:
-                eval(line)
-        except NameError:
+
+        class_name = line.strip()
+
+        if class_name not in models.storage.classes:
             print("** class doesn't exist **")
             return
+
         for key, val in objects.items():
-            if len(line) != 0:
-                if type(val) is eval(line):
-                    objectlist.append(val)
-            else:
+            if val.__class__.__name__ == class_name:
                 objectlist.append(val)
+        for obj in objectlist:
+            print(obj)
 
     def do_update(self, line):
         """
