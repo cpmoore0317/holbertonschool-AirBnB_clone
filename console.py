@@ -100,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
         if not lines:
             print("** class name missing **")
             return
-        if not lines[0] not in models.classes:
+        if not lines[0] not in classes:
             print("** class doesn't exist **")
             return
         if len(lines) < 2:
@@ -126,6 +126,7 @@ class HBNBCommand(cmd.Cmd):
             objects[key].save()
         else:
             print("** attribute doesn't exist **")
+
 
     def do_EOF(self, line):
         '''
