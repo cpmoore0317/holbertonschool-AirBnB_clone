@@ -76,18 +76,23 @@ class HBNBCommand(cmd.Cmd):
         '''
         prints all str represenations
         '''
-        if line != '':
-            lines = line.split(' ')
-            if lines[0] not in models.storage.classes():
-                print("** class doesn't exist **")
+        objectlist = []
+        models.storage = FileStorage()
+        models.storage.reload()
+        objects = models.storage.all()
+        try:
+            if len(line) != 0:
+                eval(line)
+        except NameError:
+            print("** class doesn't exist **")
+            return
+        for key, val in objects.items():
+            if len(line) != 0:
+                if type(val) is eval(line):
+                    objectlist.append(val)
             else:
-                newlist1 = [str(obj) for key, obj in models.storage.all().items()
-                            if type(obj).__name__ == lines[0]]
-                print(newlist1)
-        else:
-            newlist2 = [str(obj) for key, obj in models.storage.all().items()]
-            print(newlist2)
-    
+                objectlist.append(val)
+
     def do_update(self, line):
         """
         updates an instance based on the class name and id
