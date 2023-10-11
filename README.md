@@ -1,4 +1,12 @@
 ## HBNB Console
+![AirBnB Logo](https://www.pngitem.com/pimgs/m/132-1322125_transparent-background-airbnb-logo-hd-png-download.png)
+
+### Intro
+
+We were tasked with creating our own first full web application, an AirBnB clone.
+This being just the first part of a much bigger project, where we worked on the
+backend with the help of the cmd module we were able to get a console application
+up and started.
 
 ### Description
 
