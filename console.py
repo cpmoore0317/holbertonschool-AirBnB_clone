@@ -5,6 +5,7 @@ defines hbnb console
 import cmd
 import models
 import re
+import shlex
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -76,12 +77,47 @@ class HBNBCommand(cmd.Cmd):
             if lines[0] not in models.storage.classes():
                 print("** class doesn't exist **")
             else:
-                newlist1 = [str(obj) for key, obj in storage.all().items()
+                newlist1 = [str(obj) for key, obj in models.storage.all().items()
                             if type(obj).__name__ == lines[0]]
                 print(newlist1)
         else:
-            newlist2 = [str(obj) for key, obj in storage.all().items()]
+            newlist2 = [str(obj) for key, obj in models.storage.all().items()]
             print(newlist2)
+    
+    def do_update(self, line):
+        """
+        updates an instance based on the class name and id
+        """
+        lines = shlex.split(line)
+        if not lines:
+            print("** class name missing **")
+            return
+        if not lines[0] not in models.classes:
+            print("** class doesn't exist **")
+            return
+        if len(lines) < 2:
+            print("** instance id missing **")
+            return
+        obj_id = lines[1]
+        key = lines[0] + "." + obj_id
+        objects = models.storage.all()
+        if key not in objects:
+            print("** no instance found **")
+            return
+        if len(lines) < 3:
+            print("** attribute name missing **")
+            return
+        if len(lines) < 4:
+            print("** value missing **")
+            return
+        attribute_name = lines[2]
+        attribute_value = lines[3]
+        if hasattr(objects[key], attribute_name):
+            attribute_value = eval(attribute_value)
+            setattr(objects[key], attribute_name, attribute_value)
+            objects[key].save()
+        else:
+            print("** attribute doesn't exist **")
 
     def do_EOF(self, line):
         '''
