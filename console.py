@@ -77,7 +77,6 @@ class HBNBCommand(cmd.Cmd):
         prints all str represenations
         '''
         objectlist = []
-        models.storage = FileStorage()
         models.storage.reload()
         objects = models.storage.all()
         try:
