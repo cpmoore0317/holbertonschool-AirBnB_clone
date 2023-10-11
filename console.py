@@ -23,6 +23,8 @@ class HBNBCommand(cmd.Cmd):
     defines the hbnb command interpreter
     '''
     prompt = '(hbnb) '
+    class_list = ['BaseModel', 'User', 'State', 'City',
+                  'Amenity', 'Place', 'Review']
 
     def do_create(self, args):
         """ Creates an instance of BaseModel """
@@ -72,25 +74,24 @@ class HBNBCommand(cmd.Cmd):
                     del models.storage.all()[key]
                     models.storage.save()
 
-    def do_all(self, line):
+    def do_all(self, args):
         '''
         prints all str represenations
         '''
-        objectlist = []
-        models.storage.reload()
+        line = args.split()
         objects = models.storage.all()
-
-        class_name = line.strip()
-
-        if class_name not in models.storage.classes:
+        finalprint = []
+        if len(line) == 0:
+            for v in objects.values():
+                finalprint.append(str(v))
+        elif line[0] in HBNBCommand.class_list:
+            for k, v in objects.items():
+                if line[0] in k:
+                    finalprint.append(str(v))
+        else:
             print("** class doesn't exist **")
-            return
-
-        for key, val in objects.items():
-            if val.__class__.__name__ == class_name:
-                objectlist.append(val)
-        for obj in objectlist:
-            print(obj)
+            return False
+        print(finalprint)
 
     def do_update(self, line):
         """
@@ -126,7 +127,6 @@ class HBNBCommand(cmd.Cmd):
             objects[key].save()
         else:
             print("** attribute doesn't exist **")
-
 
     def do_EOF(self, line):
         '''
