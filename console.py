@@ -99,40 +99,42 @@ class HBNBCommand(cmd.Cmd):
             return False
         print(finalprint)
 
-    def do_update(self, line):
+    def do_update(self, args):
         """
         updates an instance based on the class name and id
         """
-        lines = shlex.split(line)
-        if not lines:
+        args = shlex.split(args)
+        if len(args) == 0:
             print("** class name missing **")
             return
-        if not lines[0] not in models.storage.classes:
-            print("** class doesn't exist **")
-            return
-        if len(lines) < 2:
+        elif len(args) == 1:
             print("** instance id missing **")
             return
-        obj_id = lines[1]
-        key = lines[0] + "." + obj_id
-        objects = models.storage.all()
-        if key not in objects:
-            print("** no instance found **")
-            return
-        if len(lines) < 3:
+        elif len(args) == 2:
             print("** attribute name missing **")
             return
-        if len(lines) < 4:
+        elif len(args) == 3:
             print("** value missing **")
             return
-        attribute_name = lines[2]
-        attribute_value = lines[3]
-        if hasattr(objects[key], attribute_name):
-            attribute_value = eval(attribute_value)
-            setattr(objects[key], attribute_name, attribute_value)
-            objects[key].save()
-        else:
-            print("** attribute doesn't exist **")
+        try:
+            eval(args[0])
+        except NameError:
+            print("** class doesn't exist **")
+            return
+        key = args[0] + "." + args[1]
+        objects = models.storage.all()
+        try:
+            objectvalue = objects[key]
+        except KeyError:
+            print("** no instance found **")
+            return
+        try:
+            attributetype = type(getattr(objectvalue, args[2]))
+            args[3] = attr_type(args[3])
+        except AttributeError:
+            pass
+        setattr(objectvalue, args[2], args[3])
+        objectvalue.save()
 
     def do_EOF(self, line):
         '''
