@@ -1,0 +1,33 @@
+/* styles/5-filters.css */
+.filters {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border-right: 1px solid #dddddd;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+.locations {
+  width: 25%;
+  border-right: 1px solid #dddddd;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.amenities {
+  width: 25%;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.locations h3,
+.amenities h3 {
+  font-weight: 600;
+}
+
+.locations h4,
+.amenities h4 {
+  font-weight: 400;
+  font-size: 14px;
+}
