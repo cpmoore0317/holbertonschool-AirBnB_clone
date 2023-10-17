@@ -1,0 +1,44 @@
+/* styles/6-filters.css */
+.locations .popover,
+.amenities .popover {
+  display: none;
+  position: absolute;
+  background-color: #fafafa;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+
+.locations h2 {
+  font-size: 16px;
+}
+
+.locations ul li {
+  cursor: pointer;
+  padding: 4px 0 4px 20px;
+}
+
+.locations li ul li {
+  cursor: pointer;
+  padding: 4px 0 4px 40px;
+}
+
+.locations li ul {
+  display: none;
+}
+
+.amenities li {
+  cursor: pointer;
+  padding: 4px 0 4px 20px;
+}
+
+.filters:hover .locations .popover,
+.filters:hover .amenities .popover {
+  display: block;
+}
+
+ul li:hover ul {
+  display: block;
+}
