@@ -1,0 +1,15 @@
+/* styles/3-footer.css */
+footer {
+  background-color: white;
+  height: 60px;
+  width: 100%;
+  border-top: 1px solid #cccccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-content {
+  /* Define styles for the footer text here */
+  color: white;
+}
